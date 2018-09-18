@@ -6,6 +6,29 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>TLTTestReportCreater</title>
     <link rel="icon" href="picture.ico" type="image/x-icon"/>
+    <script type="text/javascript" src="/js/jQuery%20v3.3.1.js"></script>
+    <script type="text/javascript">
+        //新增某商户号的测试案例
+        function addData(){
+            console.log('新增测试案例');
+            var datain = {
+                cusi:$("#merchantId").val()
+            };
+            $.ajax({
+                cache:true,//保留缓存数据
+                type:"POST",//为post请求
+                url:"addData",//这是我在后台接受数据的文件名
+                data:datain,
+                async:true,//设置成true，这标志着在请求开始后，其他代码依然能够执行。如果把这个选项设置成false，这意味着所有的请求都不再是异步的了，这也会导致浏览器被锁死
+                error:function(request){//请求失败之后的操作
+                    return;
+                },
+                success:function(data){//请求成功之后的操作
+                    console.log(data);
+                }
+            });
+        }
+    </script>
     <style type="text/css">
         /* CSS Document */
         body {
@@ -87,6 +110,7 @@
         }
         html>body td{ font-size:11px;}
     </style>
+
 </head>
 <body>
 <h2>商户/交易参数，测试商户号必填！！！其余选填（系统内部除测试商户号其余均有默认值设有默认值）</h2>
@@ -120,7 +144,7 @@
     <tr>
         <th scope="row" abbr="G5 Processor" class="specalt">新增测试案例</th>
         <td class="alt">62030249345809341</td>
-        <td class="alt" align="center"><button>新增案例</button></td>
+        <td class="alt" align="center"><button  onclick="addData()">新增案例</button></td>
         <td class="alt"><span>显示流水号</span></td>
     </tr>
     <tr>

@@ -44,7 +44,7 @@
     <mvc:default-servlet-handler />
     <!--&lt;!&ndash; 访问静态资源 &ndash;&gt;-->
     <!--<mvc:resources location="/WEB-INF/views/img/" mapping="/img/**"/>-->
-    <!--<mvc:resources location="/WEB-INF/views/js/" mapping="/js/**"/>-->
+    <mvc:resources location="/WEB-INF/views/js/" mapping="/js/**"/>
     <!--<mvc:resources location="/WEB-INF/views/frame/" mapping="/frame/**"/>-->
     <!--<mvc:resources location="/WEB-INF/views/json/" mapping="/json/**"/>-->
     <!--<mvc:resources location="/WEB-INF/views/demo/" mapping="/demo/**"/>-->
