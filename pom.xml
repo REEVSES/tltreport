@@ -96,13 +96,5 @@
             <artifactId>json</artifactId>
             <version>20160810</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/clj-http/clj-http -->
-        <dependency>
-            <groupId>clj-http</groupId>
-            <artifactId>clj-http</artifactId>
-            <version>3.7.0</version>
-        </dependency>
-
-
     </dependencies>
 </project>

@@ -11,22 +11,54 @@
         //新增某商户号的测试案例
         function addData(){
             console.log('新增测试案例');
+
             var datain = {
                 cusi:$("#merchantId").val()
             };
-            $.ajax({
-                cache:true,//保留缓存数据
-                type:"POST",//为post请求
-                url:"addData",//这是我在后台接受数据的文件名
-                data:datain,
-                async:true,//设置成true，这标志着在请求开始后，其他代码依然能够执行。如果把这个选项设置成false，这意味着所有的请求都不再是异步的了，这也会导致浏览器被锁死
-                error:function(request){//请求失败之后的操作
-                    return;
-                },
-                success:function(data){//请求成功之后的操作
-                    console.log(data);
-                }
-            });
+            if(datain.cusi=null || datain.cusi==""){
+                alert("商户号不能为空！")
+            }else {
+                $.ajax({
+                    cache: true,//保留缓存数据
+                    type: "POST",//为post请求
+                    url: "addData",
+                    data: datain,
+                    async: true,//设置成true，这标志着在请求开始后，其他代码依然能够执行。如果把这个选项设置成false，这意味着所有的请求都不再是异步的了，这也会导致浏览器被锁死
+                    error: function (request) {//请求失败之后的操作
+                        return;
+                    },
+                    success: function (data) {//请求成功之后的操作
+                        console.log(data);
+                        alert(data)
+                        $("#backXML").val(data)
+                    }
+                });
+            }
+        }
+
+        function updateData(){
+            console.log('更新测试案例');
+            console.log($("#lsh0000").val()+"---"+"0000")
+            if($("#lsh0000").val()==null || $("#lsh0000").val()==""){
+                alert("流水号不能为空!!!")
+            }else {
+                $.ajax({
+                    cache: false,//保留缓存数据
+                    type: "POST",//为post请求
+                    url: "updateData",
+                    data: "ofr_filename=" + $("#lsh0000").val() +
+                    "&state="+"3008",
+                    async: false,//设置成true，这标志着在请求开始后，其他代码依然能够执行。如果把这个选项设置成false，这意味着所有的请求都不再是异步的了，这也会导致浏览器被锁死
+                    error: function (request) {//请求失败之后的操作
+                        alert("异常！")
+                    },
+                    success: function (data) {//请求成功之后的操作
+                        console.log(data);
+                        alert(data)
+                        $("#backXML").val(data)
+                    }
+                });
+            }
         }
     </script>
     <style type="text/css">
@@ -135,12 +167,12 @@
         <th scope="col" abbr="Dual 2">更新流水号</th>
         <th scope="col" abbr="Dual 2.5">传错误码 + 执行(轮询)</th>
     </tr>
-    <tr>
+<%--    <tr>
         <th scope="row" abbr="Model" class="spec">P12UpLoad</th>
         <td align="center"><button >选择P12文件</button></td>
         <td>...</td>
         <td align="center"><button>Upload</button></td>
-    </tr>
+    </tr>--%>
     <tr>
         <th scope="row" abbr="G5 Processor" class="specalt">新增测试案例</th>
         <td class="alt">62030249345809341</td>
@@ -151,12 +183,12 @@
         <th scope="row" abbr="Frontside bus" class="spec">TLT01交易成功</th>
         <td>62030249345809341</td>
         <td align="center"><input  id="lsh0000" placeholder="填写流水号" ></td>
-        <td align="center"><button>0000</button>&nbsp;<button>==></button></td>
+        <td align="center"><button onclick="updateData()">0000</button>&nbsp;<button>==></button></td>
     </tr>
     <tr>
         <th scope="row" abbr="L2 Cache" class="specalt">TLT02余额不足</th>
         <td class="alt">62030249345809341</td>
-        <td class="alt" align="center"><input  id="lsh0000" placeholder="填写流水号" ></td>
+        <td class="alt" align="center"><input  id="lsh3008" placeholder="填写流水号" ></td>
         <td class="alt" align="center"><button>3008</button>&nbsp;<button>==></button></td>
     </tr>
     <tr>
@@ -190,19 +222,19 @@
     <tr>
         <th scope="row" abbr="L2 Cache" class="specalt">TLT08账户状态错误</th>
         <td class="alt">6231132201000397000</td>
-        <td class="alt" align="center"><input  id="lsh0000" placeholder="填写流水号" ></td>
+        <td class="alt" align="center"><input  id="lsh3057" placeholder="填写流水号" ></td>
         <td class="alt" align="center"><button>3057</button>&nbsp;<button>==></button></td>
     </tr>
     <tr>
         <th scope="row" abbr="Frontside bus" class="spec">TLT09原始交易不成功</th>
         <td>6217002920108608762</td>
-        <td align="center"><input  id="lsh0000" placeholder="填写流水号" ></td>
+        <td align="center"><input  id="lsh3027" placeholder="填写流水号" ></td>
         <td align="center"><button>3027</button>&nbsp;<button>==></button></td>
     </tr>
     <tr>
         <th scope="row" abbr="L2 Cache" class="specalt">TLT10外部系统错误</th>
         <td class="alt">6258101645858210</td>
-        <td class="alt" align="center"><input  id="lsh0000" placeholder="填写流水号" ></td>
+        <td class="alt" align="center"><input  id="lsh3071" placeholder="填写流水号" ></td>
         <td class="alt" align="center"><button>3071</button>&nbsp;<button>==></button></td>
     </tr>
     <tr>

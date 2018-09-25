@@ -30,7 +30,7 @@ public class tltTestCtrl {
      * 添加测试案例
      * @return
      */
-    @RequestMapping("addData")
+    @RequestMapping(value = "addData",produces="text/html;charset=UTF-8")
     @ResponseBody
     public String addTest(String cusi){
         System.out.println(cusi);
@@ -40,24 +40,40 @@ public class tltTestCtrl {
         String idno = "0";
         String bankcode = "0";
         String propval = cusi+"04";
-        String delay = "0";//测试交易的延迟时间，就用默认的0就行
-        String errcode = "0000";//错误码
+        //测试交易的延迟时间，就用默认的0就行
+        String delay = "0";
+        //错误码
+        String errcode = "0000";
         String dataType = "0";
-        System.out.println(sendGet("http://113.108.182.3:8282/techsp/helper/tranx/addTestdata","flag=1&cusi="+cusi+"&acctno="+acctno+"&acctname="+acctname+"&idno="+idno
-                +"&bankcode="+bankcode+"&trxcode="+trxcode+"&propval="+propval+"&delay="+delay+"&errcode="+errcode
-                +"&dataType="+dataType));
         return sendGet("http://113.108.182.3:8282/techsp/helper/tranx/addTestdata","flag=1&cusi="+cusi+"&acctno="+acctno+"&acctname="+acctname+"&idno="+idno
                 +"&bankcode="+bankcode+"&trxcode="+trxcode+"&propval="+propval+"&delay="+delay+"&errcode="+errcode
                 +"&dataType="+dataType);
     }
 
-    //get方法请求
+    /**
+     * 更新流水号
+     * @return
+     */
+    @RequestMapping(value = "updateData",produces="text/html;charset=UTF-8")
+    @ResponseBody
+    public String updateTest(String ofr_filename,String state){
+        System.out.println(ofr_filename+"--"+state);
+        //113.108.182.3:8282/techsp/helper/tranx/updateStatus?ofr_id=&flag=1&ofc_sn=&state=0000&ofr_filename=200604000005395-1537878886386&tranType=1
+        return sendGet("http://113.108.182.3:8282/techsp/helper/tranx/updateStatus","ofr_id=&flag=1&ofc_sn=&ofr_filename="+ofr_filename+"&state="+state+"&tranType=1");
+    }
+
+    /**
+     * 请求get--新增或者更新测试案例
+     * @param url
+     * @param param
+     * @return
+     */
     public static String sendGet(String url, String param) {
         String result = "";
         BufferedReader in = null;
         try {
             String urlNameString = url + "?" + param;
-            //System.out.println("发送参数信息为:"+urlNameString);
+            System.out.println(urlNameString);
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
             URLConnection connection = realUrl.openConnection();
@@ -77,7 +93,7 @@ public class tltTestCtrl {
             }
             // 定义 BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(
-                    connection.getInputStream()));
+                    connection.getInputStream(),"UTF-8"));
             String line;
             while ((line = in.readLine()) != null) {
                 //判断html中有更新成功的字样的话，返回
